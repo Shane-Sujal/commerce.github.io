@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .login-Container {
+        height: 93vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: whitesmoke;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('Nav',{username:""}) %>
+    <section class="login-Container">
+      <div class="w-96 p-8 bg-white rounded-md border-gray-300 border-2">
+        <h2 class="text-2xl font-bold mb-3 text-center">Signup Form</h2>
+        <form action="/Signup" method="POST">
+          <label for="username" class="font-semibold">Username:</label>
+          <input
+            type="text"
+            id="text"
+            name="username"
+            placeholder="Enter your name here..."
+            class="p-2 w-full rounded-sm border-gray-300 border-2 mt-1"
+            required
+          />
+          <label for="email" class="font-semibold">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your email here..."
+            class="p-2 w-full rounded-sm border-gray-300 border-2 mt-1"
+            required
+          />
+          <label for="password" class="font-semibold">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password here..."
+            class="p-2 w-full rounded-sm border-gray-300 border-2 mt-1"
+            required
+          />
+          <button
+            type="submit"
+            class="w-full cursor-pointer bg-green-500 p-4 mt-4 font-bold text-white text-xl rounded"
+          >
+            Submit
+          </button>
+          <% if (error) { %>
+          <div class="text-red-600"><%= error %></div>
+          <% } %>
+        </form>
+      </div>
+    </section>
+  </body>
+  <script></script>
+</html>

@@ -1,0 +1,52 @@
+<link
+  href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css"
+  rel="stylesheet"
+/>
+<header>
+  <nav class="bg-black h-auto p-3 border-b-1 border-black text-white">
+    <ul class="list-none">
+      <a href="/"
+        ><li class="float-left text-xl font-bold font-sans text-green-500">
+          PerryShop
+        </li></a
+      >
+      <li
+        id="login"
+        class="text-center float-right font-bold text-xl bg-green-500 -mr-2 -mt-2 h-11 w-auto rounded-md pr-2 pl-2"
+      ></li>
+      <a href="/Additems"
+        ><li class="float-right mr-6 font-bold text-xl">AddItems</li></a
+      >
+      <a href="/Product">
+        <li class="float-right mr-6 font-bold text-xl">Product</li></a
+      >
+    </ul>
+    <div class="text-xl font-sans text-center">
+      <a href="/Profile" title="profile Page">
+        <span class="font-bold">
+          Welcome, <span id="username" class="font-bold">Guest</span>
+        </span>
+      </a>
+    </div>
+  </nav>
+</header>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const userCookie = document.cookie
+      .split(";")
+      .find((cookie) => cookie.trim().startsWith("user="));
+    if (userCookie) {
+      const userDataString = decodeURIComponent(userCookie.split("=")[1]); // Decode URL encoded string
+      const userData = JSON.parse(userDataString); // Parse JSON string to object
+      const username = userData.username; // Extract username from user data
+      document.getElementById("username").textContent = username; // Update UI with username
+      document.getElementById("login").innerHTML = ` <a href="/Logout">
+          <button class="p-1 text-white font-medium">Logout</button></a
+        >`;
+    } else {
+      document.getElementById("login").innerHTML = ` <a href="/Login">
+          <button class="p-1 text-white font-medium">Login</button></a
+        >`;
+    }
+  });
+</script>

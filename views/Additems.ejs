@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="../Assets/header.webp" rel="stylesheet" />
+    <style>
+      .additemcontainer {
+        height: 93vh;
+        background-color: whitesmoke;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #successMessage {
+        position: absolute;
+        top: 6%;
+        right: 0;
+        background-color: #4cd388;
+        color: white;
+        padding: 10px;
+        font-size: 20px;
+        margin: 10px;
+        border-radius: 4px;
+        animation: message 0.3s ease-in-out;
+      }
+      @keyframes message {
+        0% {
+          transform: scale(0);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <%- include("Nav") %>
+    <section class="additemcontainer p-4">
+      <div
+        class="additembox p-8 bg-white rounded-md border-gray-300 border-2 flex justify-center items-center flex-col max-w-lg w-full"
+      >
+        <div class="additemtitle mb-6 text-3xl font-bold">Add Item</div>
+        <form
+          id="additemform"
+          action="/Additems"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <label for="itemName" class="font-semibold">Item Name</label>
+          <input
+            name="itemName"
+            id="itemName"
+            class="mb-4 h-10 w-full rounded-sm px-2 bg-gray-200 mt-1 border-2 border-gray-400"
+            type="text"
+            placeholder="Enter your item name..."
+            required
+          />
+
+          <label for="description" class="font-semibold">Description</label>
+          <textarea
+            name="description"
+            id="description"
+            class="mb-4 h-20 w-full rounded-sm px-2 bg-gray-200 mt-1 border-2 border-gray-400"
+            placeholder="Enter product description..."
+            required
+          ></textarea>
+          <div id="spancount" class="float-right relative bottom-4"></div>
+          <label for="price" class="font-semibold">Price</label>
+          <input
+            name="price"
+            id="price"
+            class="mb-4 h-10 w-full rounded-sm px-2 bg-gray-200 mt-1 border-2 border-gray-400"
+            type="number"
+            placeholder="Enter your product price..."
+            required
+          />
+          <label for="quantity" class="font-semibold">Quantity</label>
+          <input
+            name="quantity"
+            id="quantity"
+            class="mb-4 h-10 w-full rounded-sm px-2 bg-gray-200 mt-1 border-2 border-gray-400"
+            type="number"
+            value="1"
+            required
+          />
+
+          <label for="category" class="font-semibold">Category</label>
+          <select
+            name="category"
+            id="category"
+            class="mb-4 h-10 w-full rounded-md px-2 border-2 border-gray-400"
+          >
+            <option value="category1">Category 1</option>
+            <option value="category2">Category 2</option>
+            <option value="category3">Category 3</option>
+            <option value="category4">Category 4</option>
+          </select>
+
+          <label for="image" class="font-semibold">Image</label>
+          <input
+            name="image"
+            id="image"
+            class="mb-4 h-10 w-full rounded-md px-2"
+            type="file"
+            required
+          />
+          <div class="flex justify-center">
+            <button
+              type="submit"
+              class="w-full cursor-pointer bg-green-500 p-2 font-bold text-white text-xl rounded"
+            >
+              Submit
+            </button>    
+            </div>
+  
+          </div>
+
+          </form>
+  
+      </div>
+    </section>
+    <% if(message){ %>
+      <div id="successMessage"><%= message %></div>
+      <% } %>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const descriptiontextarea = document.getElementById("description");
+        const spancount = document.getElementById("spancount");
+        const maxchar = 149;
+        descriptiontextarea.addEventListener("input", function () {
+          const data = this.value.length;
+          spancount.textContent = `${data}/${maxchar + 1}`;
+          console.log(data);
+          if (data > maxchar) {
+            this.value = this.value.slice(0, maxchar);
+          }
+        });
+      });
+      setTimeout(() => {
+      const successMessage = document.getElementById("successMessage");
+      if (successMessage) {
+        successMessage.style.display = "none";
+      }
+    }, 3000);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PerryPawn</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .headercontainer {
+        height: 93vh;
+        background: url("https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1920,fit=crop/minalitemywnw/Rectangle-YZ9P6kWjMnUBNL6W.png");
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        position: relative;
+      }
+      .headertitle {
+        width: 100%;
+        text-align: center;
+      }
+      .headerdesc {
+        width: 100%;
+        text-align: center;
+      }
+      .buttondiv {
+        transform: perspective(200px) rotateX(30deg) translateY(2px);
+        transition: transform 0.55s;
+        box-shadow: 1px 1px 2px #a2e77f, -1px -1px 4px #a5fe9b;
+      }
+      .headerbutton {
+        width: 100%;
+      }
+      .buttondiv:hover {
+        transform: perspective(200px) rotateX(0deg);
+      }
+      #successMessage {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #4cd388;
+        color: white;
+        padding: 10px;
+        font-size: 20px;
+        margin: 10px;
+        border-radius: 4px;
+        animation: message 0.3s ease-in-out;
+      }
+      @keyframes message {
+        0% {
+          transform: scale(0);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body class="m-0 p-0">
+    <%- include('Nav')%>
+
+    <div class="headercontainer">
+      <div
+        class="headertitle text-5xl md:text-8xl xl:text-8xl font-extrabold text-white p-3"
+      >
+        Find yourself here.
+      </div>
+      <div
+        class="headerdesc text-1xl md:text-2xl xl:text-3xl text-white font-bold p-3"
+      >
+        Find and create your own item.
+      </div>
+      <div class="buttondiv">
+        <button
+          class="headerbutton text-2xl font-bold h-16 bg-white rounded-md p-4 border border-green-100 relative"
+        >
+          Get Started
+        </button>
+      </div>
+      <% if(success){ %>
+      <div id="successMessage"><%= success %></div>
+      <% } %>
+    </div>
+  </body>
+  <script>
+    setTimeout(() => {
+      const successMessage = document.getElementById("successMessage");
+      if (successMessage) {
+        successMessage.style.display = "none";
+      }
+    }, 3000);
+  </script>
+</html>

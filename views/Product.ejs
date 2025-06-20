@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    .product_container {
+      height: auto;
+      /* background-color: rgb(255, 242, 205); */
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .empty_product_container {
+      height: 93vh;
+      background-color: rgb(255, 242, 205);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+
+    }
+
+    .card {
+      --bg-card: rgb(221, 221, 221);
+      --primary: #050f0e;
+      --primary-800: #15887e;
+      --primary-shadow: #15887e;
+      --light: #000000;
+      --zinc-800: #448ba0;
+      --bg-linear: blue;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 1rem;
+      width: 20rem;
+      background-color: var(--bg-card);
+      border-radius: 1rem;
+      border-radius: 22px;
+      transition: 0.4s box-shadow ease-in-out;
+      cursor: pointer;
+    }
+
+    .image_container {
+      overflow: hidden;
+      cursor: pointer;
+
+      position: relative;
+      z-index: 5;
+
+      width: 100%;
+      height: 8rem;
+      background-color: var(--primary-800);
+
+      border-radius: 0.5rem;
+    }
+
+    .image_container .image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      width: 3rem;
+      fill: var(--light);
+    }
+
+    .title {
+      overflow: clip;
+
+      width: 100%;
+
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--light);
+      text-transform: capitalize;
+      text-wrap: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .size {
+      font-weight: 400;
+      font-size: 1.1rem;
+      color: var(--light);
+    }
+
+    .list-size {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+
+      margin-top: 0.25rem;
+    }
+
+    .list-size .item-list {
+      list-style: none;
+    }
+
+    .list-size .item-list-button {
+      cursor: pointer;
+      background-color: rgb(12, 70, 65);
+
+      font-size: 0.75rem;
+      color: var(--light);
+
+      border: 1px solid white;
+      border-radius: 0.25rem;
+
+      transition: all 0.3s ease-in-out;
+    }
+
+    .item-list-button:hover {
+      border: 1px solid var(--light);
+    }
+
+    .item-list-button:focus {
+      border: 1px solid var(--primary-shadow);
+    }
+
+    .action {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--light);
+    }
+
+    .cart-button {
+      cursor: pointer;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.25rem;
+
+      padding: 0.5rem;
+      width: 100%;
+      background-color: rgb(46, 11, 184);
+
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: white;
+      text-wrap: nowrap;
+
+      border: 1px solid white;
+      border-radius: 0.5rem;
+    }
+
+    .cart-button .cart-icon {
+      width: 1rem;
+    }
+
+    #successMessage {
+      position: absolute;
+      top: 6%;
+      right: 0;
+      background-color: #4cd388;
+      color: white;
+      padding: 10px;
+      font-size: 20px;
+      margin: 10px;
+      border-radius: 4px;
+      animation: message 0.3s ease-in-out;
+    }
+
+    #errorMessage {
+      position: absolute;
+      top: 6%;
+      right: 0;
+      background-color: #d93a3a;
+      color: white;
+      padding: 10px;
+      font-size: 20px;
+      margin: 10px;
+      border-radius: 4px;
+      animation: message 0.3s ease-in-out;
+    }
+
+    @keyframes message {
+      0% {
+        transform: scale(0);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+    .update-Info {
+      animation: updatepopover 0.4s 1 ease-in-out;
+    }
+
+    @keyframes updatepopover {
+      0% {
+        transform: scale(0);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <%- include('Nav') %>
+    <% if (state) { %>
+      <div class="product_container">
+        <div class="h-12 w-full bg-gray-400 flex justify-center m-1 rounded-sm">
+          <div class="flex-1">
+            <form action="/Product/search" method="post">
+              <label for="site-search">Search the Product</label>
+              <input list="product-List" class="m-2 rounded-sm pl-1" type="search" id="site-search" name="Category" />
+              <button type="submit" class="m-1 bg-white p-1 rounded-md">Search</button>
+              <datalist id="product-List">
+                <option value="Category1"></option>
+                <option value="Panda"></option>
+                <option value="Football"></option>
+                <option value="Rubico"></option>
+                <option value="Chaand feel kre shy"></option>
+                <option value="Category2"></option>
+                <option value="Category3"></option>
+                <option value="Category4"></option>
+              </datalist>
+            </form>
+          </div>
+          <div class="m-2 "> <button>Cart</button></div>
+        </div>
+        <% Items.forEach(item=> { %>
+          <div class="card">
+            <div class="image_container">
+              <img src="data:<%= item.image.contentType %>;base64,<%= item.image.data.toString('base64') %>"
+                alt="<%= item.itemName %>">
+            </div>
+            <div class="title">
+              <span>
+                <%= item.itemName %>
+              </span>
+            </div>
+            <div class="size">
+              <p>Description: <%= item.description %>
+              </p>
+              <p>Price: $<%= item.price %>
+              </p>
+              <p>Quantity=<%= item.quantity %>
+              </p>
+
+              <p>Category: <%= item.category %>
+              </p>
+            </div>
+            <div class="action">
+              <button class="cart-button" popovertarget="detailinfo_<%= item._id %>">
+                <svg class="cart-icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                    stroke-linejoin="round" stroke-linecap="round"></path>
+                </svg>
+                <span>View Info</span>
+              </button>
+            </div>
+          </div>
+          <div id="detailinfo_<%= item._id %>" class="update-Info bg-gray-50 shadow-lg rounded-lg p-4 border-2 border-black"
+            popover>
+            <div class="flex justify-center w-auto">
+              <img src="data:<%= item.image.contentType %>;base64,<%= item.image.data.toString('base64') %>"
+                alt="<%= item.itemName %>" class="w-auto h-52 object-cover rounded">
+            </div>
+            <div class="mt-4">
+              <h2 class="text-lg font-bold">
+                <%= item.itemName %>
+              </h2>
+              <p class="text-lg text-gray-500">Description: <%= item.description %>
+              </p>
+              <p class="text-lg text-gray-500">Category: <%= item.category %>
+              </p>
+              <p class="text-lg font-bold mt-2">Price: $<%= item.price %>
+              </p>
+              <p class="text-lg font-bold mt-2">Quantity: <%= item.quantity %>
+              </p>
+
+            </div>
+            <form action="/Cart?productid=<%= item._id %>" method="post" class="mt-4">
+              <label for="Quantity" class="block text-sm font-medium text-gray-700">Quantity</label>
+              <input type="number" name="Quantity" value="1"
+                class="w-16 px-3 font-semibold py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+              <button type="submit"
+                class="mt-2 w-full inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Add to Cart
+              </button>
+            </form>
+          </div>
+
+
+          <% if(success){ %>
+            <div id="successMessage">
+              <%= success %>
+            </div>
+            <% } %>
+            <% if(error){ %>
+              <div id="errorMessage">
+                <%= error %>
+              </div>
+              <% } %>
+               
+
+              <% }) %>
+                <% } else { %>
+                  <div class="empty_product_container">
+                    <div class="h-60 m-4">
+                      <img class="h-60"
+                        src="https://cdn.dribbble.com/users/1260892/screenshots/14512031/done_comp_3.gif"
+                        alt="emptyProduct" />
+                    </div>
+                    <div class="text-xl font-bold text-black text-center">
+                      Be First To Add Somethhing Here.
+                    </div>
+                  </div>
+                  <% } %>
+      </div>
+      </div>
+
+</body>
+<script>
+  setTimeout(() => {
+    const successMessage = document.getElementById("successMessage");
+    if (successMessage) {
+      successMessage.style.display = "none";
+    }
+  }, 3000);
+  setTimeout(() => {
+    const errorMessage = document.getElementById("errorMessage");
+    if (errorMessage) {
+      errorMessage.style.display = "none";
+    }
+  }, 3000);
+</script>
+
+</html>
