@@ -1,0 +1,12 @@
+# Exported from Render on 2025-06-23T09:46:30Z
+services:
+- type: web
+  name: ecommerce-ejs-app
+  runtime: node
+  repo: https://github.com/Shane-Sujal/commerce.github.io
+  plan: free
+  region: singapore
+  buildCommand: npm install
+  startCommand: npm start
+  autoDeployTrigger: commit
+version: "1"
